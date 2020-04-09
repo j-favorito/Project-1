@@ -16,4 +16,10 @@ body{
 
 .search-btn{
     margin-top: 3px;
+    margin-left: 12px;
+}
+
+.city-search{
+    margin-left: 12px;
+    margin-right: 12px;
 }
