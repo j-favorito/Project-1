@@ -12,6 +12,7 @@ body{
     display: inline-block;
     color: black;
     margin: 5px;
+    height: 225px;
 }
 
 .search-btn{
@@ -23,4 +24,10 @@ body{
 .city-search{
     margin-left: 12px;
     margin-right: 12px;
+}
+
+.main-body{
+    height: 500px;
+    background-color: orange;
+    margin: 5px;
 }
