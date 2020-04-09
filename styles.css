@@ -1,0 +1,19 @@
+body{
+    background-color: black;
+}
+
+.jumbo{
+    background-color: orange;
+    margin: 5px;
+}
+
+.menu-bar{
+    background-color: orange;
+    display: inline-block;
+    color: black;
+    margin: 5px;
+}
+
+.search-btn{
+    margin-top: 3px;
+}
