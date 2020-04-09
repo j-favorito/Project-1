@@ -32,3 +32,15 @@ body{
     background-color: orange;
     margin: 5px;
 }
+
+h1{
+    display: inline;
+    font-family: papyrus;
+    margin-right: 10px;
+}
+
+.broom{
+    width: 10%;
+    height: auto;
+    vertical-align: middle;
+}
