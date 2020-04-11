@@ -1,105 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css"
+        integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <link rel="stylesheet" href="./styles.css">
-    <title>Three Broomsticks</title>
 </head>
+
 <body>
     <div class="pure-g jumbo">
-        <div class="pure-u-1"><center><img src="images/broom-reverse.png" class="broom"><h1>Three Broomsticks' Brewery Locator</h1><img src="Images/PinClipart.com_beer-mug-clip-art_4464044.png" class="broom"></center></div>
-    </div>
-    <div class="pure-g side-menu">
-        <div class="pure-u-1 pure-u-md-1-6 menu-bar">
-            <div class="pure-menu">
-                <span class="pure-menu-heading">Navigator</span>
-            
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Search Page</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Map Page</a></li>
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Favorites page</a></li><br>
-                    <li><input class="pure-input-2-24 city-search" type="text" placeholder="City Search"></li>
-                    <li><button class="pure-button search-btn">Search</button></li>
-                </ul>
-            </div>
+        <div class="pure-u-1">
+            <center><img src="images/broom-reverse.png" class="broom">
+                <h1>Three Broomsticks' Brewery Locator</h1><img
+                    src="Images/PinClipart.com_beer-mug-clip-art_4464044.png" class="broom">
+            </center>
         </div>
-        <div class="pure-u-1 pure-u-md-19-24 main-body">
-            <form class="pure-form pure-form-aligned">
-                <fieldset>
-                    <h2 class="">Search Here</h2>
-                    <div class="pure-control-group">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" placeholder="Brewery Name">
-                        
-                    </div>
-            
-                    <div class="pure-control-group">
-                        <label for="city">City</label>
-                        <input id="city" type="text" placeholder="City">
-                    </div>
-            
-                    <div class="pure-control-group">
-                        <label for="email">State</label>
-                        <input id="state" type="text" placeholder="State">
-                    </div>
-            
-                    <div class="pure-control-group">
-                        <label for="Zip">Zip Code</label>
-                        <input id="Zip" type="text" placeholder="Zip Code">
-                    </div>
-                    <div class="pure-controls">
-                        <label for="cb" class="pure-checkbox">Type of Brewery
-                            <label for="option-two" class="pure-radio">
-                                <input id="option-two" type="checkbox" name="optionsRadios" value="option1">
+    </div>
+    <br>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <center>
+                <h2 class="city-question">What city are you in?</h2>
+            </center>
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <center>
+                <form class="pure-form">
+                    <input type="text" class="pure-input-rounded city-search">
+                </form>
+            </center>
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <center>
+                <form class="pure-form">
+                    <div class="pure-controls type">
+                        <label for="cb" class="pure-checkbox">
+                            <h2>Type of Brewery</h2>
+                            <label for="option-one" class="pure-radio">
+                                <input class="is-checked" id="option-one" type="checkbox" name="optionsRadios"
+                                    value="micro">
                                 Micro
                             </label>
-                        
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-two" class="pure-radio">
+                                <input class="is-checked" id="option-two" type="checkbox" name="optionsRadios"
+                                    value="regional">
                                 Regional
                             </label>
                             <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                                <input class="is-checked" id="option-three" type="checkbox" name="optionsRadios"
+                                    value="brewpub">
                                 Brewpub
                             </label>
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-four" class="pure-radio">
+                                <input class="is-checked" id="option-four" type="checkbox" name="optionsRadios"
+                                    value="large">
                                 Large
                             </label>
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-five" class="pure-radio">
+                                <input class="is-checked" id="option-five" type="checkbox" name="optionsRadios"
+                                    value="planning">
                                 Planning
                             </label>
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-six" class="pure-radio">
+                                <input class="is-checked" id="option-six" type="checkbox" name="optionsRadios"
+                                    value="bar">
                                 Bar
                             </label>
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-seven" class="pure-radio">
+                                <input class="is-checked" id="option-seven" type="checkbox" name="optionsRadios"
+                                    value="contract">
                                 Contract
                             </label>
-                            <label for="option-three" class="pure-radio">
-                                <input id="option-three" type="checkbox" name="optionsRadios" value="option2">
+                            <label for="option-eight" class="pure-radio">
+                                <input class="is-checked" id="option-eight" type="checkbox" name="optionsRadios"
+                                    value="proprietor">
                                 Proprietor
                             </label>
-                            
-                            
-                        </label>
-                        
-                        
-                    </div>
-                    
-                    <div class="pure-controls">
-                        <button type="submit" class="pure-button pure-button-primary">Submit</button>
-                    </div>
-                </fieldset>
-            </form>
-            
-        </div>
 
-    </div>    
+
+                        </label>
+
+
+                    </div>
+                </form>
+                <button class="pure-button search-btn">Search</button><br>
+            </center>
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-u-1">
+            <center>
+                <a class="pure-button favorite-btn">Favorites</a>
+            </center>
+        </div>
+    </div>
 </body>
+
 </html>
