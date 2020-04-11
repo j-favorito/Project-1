@@ -21,6 +21,8 @@ body{
 }
 
 .favorite-btn{
+    margin-top: 3px;
+    margin-bottom: 5px;
     background-color: orange;
 }
 
@@ -33,8 +35,7 @@ body{
 }
 
 .search-btn{
-    margin-top: 3px;
-    margin-left: 12px;
+    margin-top: 10px;
     margin-bottom: 5px;
     background-color: orange;
 }
@@ -42,7 +43,7 @@ body{
 .city-search{
     margin-left: 12px;
     margin-right: 12px;
-    width: 100px;
+    width: 200px;
 }
 
 .main-body{
@@ -64,4 +65,16 @@ h1{
 }
 ul{
     color: orange;
+}
+
+.brew-list{
+    border: 5px;
+    border-color: orange;
+    border-style: solid;
+    padding: 5px;
+}
+
+.brew-list h3{
+    color: black;
+    background-color: orange;
 }
