@@ -4,7 +4,8 @@ body{
 
 .jumbo{
     background-color: orange;
-    margin: 5px;
+    margin-left: 19px;
+    margin-right: 19px;
 }
 
 .type{
@@ -76,7 +77,9 @@ ul{
     border-color: orange;
     border-style: solid;
     padding: 5px;
-    margin: 5px;
+    margin-top: 5px;
+    margin-left: 19px;
+    margin-right: 19px;
 }
 
 .brew-list h3{
@@ -91,4 +94,5 @@ ul{
 #map {
     height: 400px;
     width: 90%;
+    margin-bottom: 15px;
 }
