@@ -6,26 +6,34 @@ $(document).ready(function () {
     function renderSearchInfo(brewData) {
         console.log(brewData);
         console.log(brewData[0].name);
+        let j = 0;
+        let rowElement = $("<div>");
+        rowElement.addClass("pure-g");
+        let mapElement = $("<div>");
+        mapElement.addClass("map");
+        $(".results-field").append(mapElement, rowElement);
         for (let i = 0; i < brewData.length; i++) {
-            let brewery = brewData[i];
-            breweryCount = i + 1;
-            let brewList = $("<ul>");
-            let brewAddress = $("<p>");
-
-            let brewPhone = $("<p>");
-            let brewUrl = $("<a>");
-            brewList.text(brewData[i].name);
             if (brewData[i].street !== "") {
-                brewAddress.text(brewData[i].street + ", " + brewData[i].city);
-
-            }; 
-            
-            brewPhone.text(brewData[i].phone);
-            brewUrl.text(brewData[i].website_url);
-            brewUrl.attr("href", brewData[i].website_url);
-            brewList.append(brewAddress, brewPhone, brewUrl);
-            $(".results-field").append(brewList);
-
+                let brewery = brewData[i];
+                breweryCount = i + 1;
+                let brewList = $("<ul>");
+                let brewName = $("<h3>");
+                let brewAddress = $("<p>");
+                let brewPhone = $("<p>");
+                let brewType = $("<p>")
+                let brewUrl = $("<a>");
+                j += 1;
+                brewName.text(j + ". " + brewData[i].name);
+                brewAddress.text("Address: " + brewData[i].street + ", " + brewData[i].city);
+                brewPhone.text("Phone Number: " + brewData[i].phone);
+                brewUrl.text(brewData[i].website_url);
+                brewType.text("Brewery Type: " + brewData[i].brewery_type);
+                brewUrl.attr("href", brewData[i].website_url);
+                brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl);
+                brewList.addClass("brew-list");
+                brewList.addClass("pure-u-1")
+                $(rowElement).append(brewList);
+            }
 
         };
     };
@@ -35,6 +43,8 @@ $(document).ready(function () {
 
     $(".search-btn").on("click", function (e) {
         e.preventDefault();
+        $(".city-question").empty();
+        $(".results-field").empty();
 
 
 
@@ -46,12 +56,11 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         })
-        .then(function (response){
-            $(".results-field").empty();
-            renderSearchInfo(response);
-        })
+            .then(function (response) {
+                renderSearchInfo(response);
+            })
 
-        
+
 
     });
 
