@@ -6,27 +6,32 @@ $(document).ready(function () {
     function renderSearchInfo(brewData) {
         console.log(brewData);
         console.log(brewData[0].name);
+        let j = 0;
+        let rowElement = $("<div>");
+        rowElement.addClass("pure-g");
+        let mapElement = $("<div>");
+        mapElement.addClass("map");
+        $(".results-field").append(mapElement, rowElement);
         for (let i = 0; i < brewData.length; i++) {
             if (brewData[i].street !== "") {
-                let rowElement = $("<div>");
-                rowElement.addClass("pure-g");
-                $(".results-field").append(rowElement);
                 let brewery = brewData[i];
                 breweryCount = i + 1;
                 let brewList = $("<ul>");
                 let brewName = $("<h3>");
                 let brewAddress = $("<p>");
                 let brewPhone = $("<p>");
+                let brewType = $("<p>")
                 let brewUrl = $("<a>");
-                brewName.text(brewData[i].name);
-                brewAddress.text(brewData[i].street + ", " + brewData[i].city);
-
-                brewPhone.text(brewData[i].phone);
+                j += 1;
+                brewName.text(j + ". " + brewData[i].name);
+                brewAddress.text("Address: " + brewData[i].street + ", " + brewData[i].city);
+                brewPhone.text("Phone Number: " + brewData[i].phone);
                 brewUrl.text(brewData[i].website_url);
+                brewType.text("Brewery Type: " + brewData[i].brewery_type);
                 brewUrl.attr("href", brewData[i].website_url);
-                brewList.append(brewName, brewAddress, brewPhone, brewUrl);
+                brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl);
                 brewList.addClass("brew-list");
-                brewList.addClass("pure-u-1-4")
+                brewList.addClass("pure-u-1")
                 $(rowElement).append(brewList);
             }
 
@@ -38,6 +43,8 @@ $(document).ready(function () {
 
     $(".search-btn").on("click", function (e) {
         e.preventDefault();
+        $(".city-question").empty();
+        $(".results-field").empty();
 
 
 
@@ -50,7 +57,6 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-                $(".results-field").empty();
                 renderSearchInfo(response);
             })
 

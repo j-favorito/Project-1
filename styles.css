@@ -55,7 +55,7 @@ body{
 h1{
     display: inline;
     font-family: papyrus;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .broom{
@@ -72,9 +72,11 @@ ul{
     border-color: orange;
     border-style: solid;
     padding: 5px;
+    margin: 5px;
 }
 
 .brew-list h3{
     color: black;
     background-color: orange;
 }
+
