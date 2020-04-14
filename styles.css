@@ -46,6 +46,10 @@ body{
     width: 200px;
 }
 
+.city-question{
+    margin-bottom: 10px;
+}
+
 .main-body{
     height: 500px;
     background-color: orange;
@@ -86,5 +90,5 @@ ul{
 }
 #map {
     height: 400px;
-    width: 70%;
+    width: 90%;
 }

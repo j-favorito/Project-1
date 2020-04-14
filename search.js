@@ -43,8 +43,8 @@ $(document).ready(function () {
     //this is for diplaying map
     function initMap() {
         var options = {
-            zoom: 4,
-            center: { lat: 37.0902, lng: -95.7129 }
+            zoom: 12,
+            center: { lat: locationLat, lng: locationLng }
         }
         //new map
         var map = new
