@@ -2,11 +2,14 @@ $(document).ready(function () {
     // let stateName = $().val().trim();
     // let brewName = $().val().trim();
     // let zipCode = $().val().trim();
+    var locations = [];
+    var labels = [];
 
     function renderSearchInfo(brewData) {
         console.log(brewData);
         console.log(brewData[0].name);
         let j = 0;
+        let k = 0;
         let rowElement = $("<div>");
         rowElement.addClass("pure-g");
         let mapElement = $("<div>");
@@ -24,6 +27,11 @@ $(document).ready(function () {
                 let brewUrl = $("<a>");
                 let favButton = $("<button>");
                 favButton.text("Add to Favorites");
+                if(brewData[i].latitude!==null){
+                locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
+                k+=1;
+                labels.push(k);
+                }
                 j += 1;
                 brewName.text(j + ". " + brewData[i].name);
                 brewAddress.text("Address: " + brewData[i].street + ", " + brewData[i].city);
@@ -36,10 +44,11 @@ $(document).ready(function () {
                 brewList.addClass("pure-u-1");
                 $(rowElement).append(brewList);
             }
-
         };
+        console.log(locations);
+        initMap();
     };
-    
+
     let locationLat = 33.4494
     let locationLng = -112.0740
     //this is for diplaying map
@@ -51,11 +60,26 @@ $(document).ready(function () {
         //new map
         var map = new
             google.maps.Map(document.getElementById("map"), options);
-        var marker = new google.maps.Marker({
-            position: { lat: locationLat, lng: locationLng },
-            map: map
-        })
+
+            var markers = locations.map(function (location , i) {
+                console.log(location);
+                return new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+            });
+        
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                );
     }
+
+    // Add some markers to the map.
+    // Note: The code uses the JavaScript Array.prototype.map() method to
+    // create an array of markers based on a given "locations" array.
+    // The map() method here has nothing to do with the Google Maps API.
+
+
 
 
 
@@ -79,7 +103,6 @@ $(document).ready(function () {
             console.log(response)
             locationLat = response.results[0].geometry.location.lat
             locationLng = response.results[0].geometry.location.lng
-            initMap();
         });
 
 
