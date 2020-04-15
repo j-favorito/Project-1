@@ -27,6 +27,10 @@ $(document).ready(function () {
                 let brewUrl = $("<a>");
                 let favButton = $("<button>");
                 favButton.text("Add to Favorites");
+                favButton.attr({
+                    class: "pure-button fav-button",
+                    index: j
+                })
                 if(brewData[i].latitude!==null){
                 locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
                 k+=1;
