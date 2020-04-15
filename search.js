@@ -25,6 +25,8 @@ $(document).ready(function () {
                 let brewPhone = $("<p>");
                 let brewType = $("<p>")
                 let brewUrl = $("<a>");
+                let favButton = $("<button>");
+                favButton.text("Add to Favorites");
                 if(brewData[i].latitude!==null){
                 locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
                 k+=1;
@@ -37,7 +39,7 @@ $(document).ready(function () {
                 brewUrl.text(brewData[i].website_url);
                 brewType.text("Brewery Type: " + brewData[i].brewery_type);
                 brewUrl.attr("href", brewData[i].website_url);
-                brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl);
+                brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl, favButton);
                 brewList.addClass("brew-list");
                 brewList.addClass("pure-u-1");
                 $(rowElement).append(brewList);
@@ -116,16 +118,45 @@ $(document).ready(function () {
             .then(function (response) {
                 renderSearchInfo(response);
             })
+            //local storage
 
-
+            // let text = $(".search-btn").text();
+            // localStorage.setItem("search-btn", text);
+            // alert(localStorage.getItem("search-btn"));
+        
 
     });
 
-
-
-
-
-
-
-
+    // function addFav(){
+    //     $.ajax({
+    //       url: "/favorites/add",
+    //       data: {"id": articleID},
+    //       success: function(){
+    //            $('a#fav')
+    //                  .addClass('active')
+    //                  .attr('title','[-] Remove from favorites')
+    //                  .unbind('click')
+    //                  .bind('click', removeFav)
+    //            ;
+    //       }
+    //     });
+    // }
+    
+    // function removeFav(){
+    //     $.ajax({
+    //       url: "/favorites/remove",
+    //       data: {"id": articleID},
+    //       success: function(){
+    //             $('a#fav')
+    //                  .removeClass('active')
+    //                  .attr('title','[+] Add as favorite')
+    //                  .unbind('click')
+    //                  .bind('click', addFav)
+    //             ;
+    //       }
+    //     });
+    // }
+    
+    //this will make the link listen to function addFav (you might know this already)
+    // $('a#fav').bind('click', addFav);
 });
