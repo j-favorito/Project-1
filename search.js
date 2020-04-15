@@ -16,7 +16,7 @@ $(document).ready(function () {
         mapElement.attr("id", "map");
         $(".results-field").append(mapElement, rowElement);
         for (let i = 0; i < brewData.length; i++) {
-            if (brewData[i].street !== "") {
+            if (brewData[i].street !== ""  && brewData[i].city==$(".city-search").val().trim()) {
                 let brewery = brewData[i];
                 breweryCount = i + 1;
                 let brewList = $("<ul>");
@@ -53,12 +53,12 @@ $(document).ready(function () {
         initMap();
     };
 
-    let locationLat = 33.4494
-    let locationLng = -112.0740
+    let locationLat = 0
+    let locationLng = 0
     //this is for diplaying map
     function initMap() {
         var options = {
-            zoom: 12,
+            zoom: 10,
             center: { lat: locationLat, lng: locationLng }
         }
         //new map
@@ -66,7 +66,6 @@ $(document).ready(function () {
             google.maps.Map(document.getElementById("map"), options);
 
             var markers = locations.map(function (location , i) {
-                console.log(location);
                 return new google.maps.Marker({
                     position: location,
                     label: labels[i % labels.length]
