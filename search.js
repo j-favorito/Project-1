@@ -33,7 +33,7 @@ $(document).ready(function () {
                 })
                 if (brewData[i].latitude !== null) {
                     locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
-                    let num=j+1;
+                    let num = j + 1;
                     labels[k] = num.toString();
                     k += 1;
                 }
@@ -51,11 +51,10 @@ $(document).ready(function () {
             }
         };
         console.log(locations);
-        initMap();
         console.log(labels);
     };
-    let locationLat = 0;
-    let locationLng = 0;
+    let locationLat = 39.8283;
+    let locationLng = -98.5795;
     //this is for diplaying map
     function initMap() {
         var options = {
@@ -121,6 +120,7 @@ $(document).ready(function () {
         })
             .then(function (response) {
                 renderSearchInfo(response);
+                initMap();
             })
         //local storage
 
