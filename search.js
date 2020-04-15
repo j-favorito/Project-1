@@ -10,7 +10,7 @@ $(document).ready(function () {
         let rowElement = $("<div>");
         rowElement.addClass("pure-g");
         let mapElement = $("<div>");
-        mapElement.addClass("map");
+        mapElement.attr("id", "map");
         $(".results-field").append(mapElement, rowElement);
         for (let i = 0; i < brewData.length; i++) {
             if (brewData[i].street !== "") {
@@ -31,12 +31,30 @@ $(document).ready(function () {
                 brewUrl.attr("href", brewData[i].website_url);
                 brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl);
                 brewList.addClass("brew-list");
-                brewList.addClass("pure-u-1")
+                brewList.addClass("pure-u-1");
                 $(rowElement).append(brewList);
             }
 
         };
     };
+    
+    let locationLat = 33.4494
+    let locationLng = -112.0740
+    //this is for diplaying map
+    function initMap() {
+        var options = {
+            zoom: 12,
+            center: { lat: locationLat, lng: locationLng }
+        }
+        //new map
+        var map = new
+            google.maps.Map(document.getElementById("map"), options);
+        var marker = new google.maps.Marker({
+            position: { lat: locationLat, lng: locationLng },
+            map: map
+        })
+    }
+
 
 
 
@@ -45,6 +63,22 @@ $(document).ready(function () {
         e.preventDefault();
         $(".city-question").empty();
         $(".results-field").empty();
+
+        //api keys 
+        var apiKey = "AIzaSyDmKB_PsZA-oY2nOAY-ENH8huGsjSKh3rQ";
+        let searchTerms = $(".city-search").val();
+        let corsUrl = "https://cors-anywhere.herokuapp.com/"
+        var queryUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + searchTerms + "&key=" + apiKey
+        //ajax call 
+        $.ajax({
+            url: queryUrl,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response)
+            locationLat = response.results[0].geometry.location.lat
+            locationLng = response.results[0].geometry.location.lng
+            initMap();
+        });
 
 
 
