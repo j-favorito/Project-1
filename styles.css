@@ -96,3 +96,10 @@ ul{
     width: 90%;
     margin-bottom: 15px;
 }
+.fav-button{
+    display: block;
+    background-color: orange;
+    color: black;
+    margin-top: 10px;
+
+}

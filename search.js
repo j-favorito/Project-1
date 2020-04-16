@@ -16,7 +16,7 @@ $(document).ready(function () {
         mapElement.attr("id", "map");
         $(".results-field").append(mapElement, rowElement);
         for (let i = 0; i < brewData.length; i++) {
-            if (brewData[i].street !== "") {
+            if (brewData[i].street !== "" && brewData[i].city == $(".city-search").val().trim()) {
                 let brewery = brewData[i];
                 breweryCount = i + 1;
                 let brewList = $("<ul>");
@@ -27,10 +27,15 @@ $(document).ready(function () {
                 let brewUrl = $("<a>");
                 let favButton = $("<button>");
                 favButton.text("Add to Favorites");
-                if(brewData[i].latitude!==null){
-                locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
-                k+=1;
-                labels.push(k);
+                favButton.attr({
+                    class: "pure-button fav-button",
+                    index: j
+                })
+                if (brewData[i].latitude !== null) {
+                    locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
+                    let num = j + 1;
+                    labels[k] = num.toString();
+                    k += 1;
                 }
                 j += 1;
                 brewName.text(j + ". " + brewData[i].name);
@@ -46,32 +51,30 @@ $(document).ready(function () {
             }
         };
         console.log(locations);
-        initMap();
+        console.log(labels);
     };
-
-    let locationLat = 33.4494
-    let locationLng = -112.0740
+    let locationLat = 39.8283;
+    let locationLng = -98.5795;
     //this is for diplaying map
     function initMap() {
         var options = {
-            zoom: 12,
+            zoom: 10,
             center: { lat: locationLat, lng: locationLng }
         }
         //new map
         var map = new
             google.maps.Map(document.getElementById("map"), options);
 
-            var markers = locations.map(function (location , i) {
-                console.log(location);
-                return new google.maps.Marker({
-                    position: location,
-                    label: labels[i % labels.length]
-                });
+        var markers = locations.map(function (location, i) {
+            return new google.maps.Marker({
+                position: location,
+                label: labels[i % labels.length]
             });
-        
-            // Add a marker clusterer to manage the markers.
-            var markerCluster = new MarkerClusterer(map, markers,
-                );
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            { imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m" });
     }
 
     // Add some markers to the map.
@@ -117,13 +120,14 @@ $(document).ready(function () {
         })
             .then(function (response) {
                 renderSearchInfo(response);
+                initMap();
             })
-            //local storage
+        //local storage
 
-            // let text = $(".search-btn").text();
-            // localStorage.setItem("search-btn", text);
-            // alert(localStorage.getItem("search-btn"));
-        
+        // let text = $(".search-btn").text();
+        // localStorage.setItem("search-btn", text);
+        // alert(localStorage.getItem("search-btn"));
+
 
     });
 
@@ -141,7 +145,7 @@ $(document).ready(function () {
     //       }
     //     });
     // }
-    
+
     // function removeFav(){
     //     $.ajax({
     //       url: "/favorites/remove",
@@ -156,7 +160,7 @@ $(document).ready(function () {
     //       }
     //     });
     // }
-    
+
     //this will make the link listen to function addFav (you might know this already)
     // $('a#fav').bind('click', addFav);
 });
