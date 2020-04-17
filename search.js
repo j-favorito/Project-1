@@ -4,12 +4,15 @@ $(document).ready(function () {
     // let zipCode = $().val().trim();
     var locations = [];
     var labels = [];
+    let saveData = [];
+    let favoriteData=[];
 
     function renderSearchInfo(brewData) {
         console.log(brewData);
         console.log(brewData[0].name);
-        let j = 0;
+        saveData=[];
         let k = 0;
+        let j = 0;
         let rowElement = $("<div>");
         rowElement.addClass("pure-g");
         let mapElement = $("<div>");
@@ -29,7 +32,7 @@ $(document).ready(function () {
                 favButton.text("Add to Favorites");
                 favButton.attr({
                     class: "pure-button fav-button",
-                    index: j
+                    id: "button_" + j
                 })
                 if (brewData[i].latitude !== null) {
                     locations[k] = { lat: parseFloat(brewData[i].latitude), lng: parseFloat(brewData[i].longitude) }
@@ -37,6 +40,14 @@ $(document).ready(function () {
                     labels[k] = num.toString();
                     k += 1;
                 }
+                let brewInfo = {
+                    name: brewData[i].name,
+                    address: "Address: " + brewData[i].street + ", " + brewData[i].city,
+                    phone: "Phone Number: " + brewData[i].phone,
+                    url: brewData[i].website_url,
+                    type: "Brewery Type: " + brewData[i].brewery_type
+                }
+                saveData.push(brewInfo);
                 j += 1;
                 brewName.text(j + ". " + brewData[i].name);
                 brewAddress.text("Address: " + brewData[i].street + ", " + brewData[i].city);
@@ -50,11 +61,18 @@ $(document).ready(function () {
                 $(rowElement).append(brewList);
             }
         };
+        initMap();
+        for (let i = 0; i < j; i++) {
+            save(i);
+            console.log(j);
+        };
+        console.log(saveData)
         console.log(locations);
         console.log(labels);
     };
     let locationLat = 39.8283;
     let locationLng = -98.5795;
+
     //this is for diplaying map
     function initMap() {
         var options = {
@@ -62,6 +80,7 @@ $(document).ready(function () {
             center: { lat: locationLat, lng: locationLng }
         }
         //new map
+        console.log("this is Map function")
         var map = new
             google.maps.Map(document.getElementById("map"), options);
 
@@ -101,11 +120,13 @@ $(document).ready(function () {
         //ajax call 
         $.ajax({
             url: queryUrl,
-            method: "GET"
+            method: "GET",
+            async: false
         }).then(function (response) {
             console.log(response)
-            locationLat = response.results[0].geometry.location.lat
-            locationLng = response.results[0].geometry.location.lng
+            locationLat =  response.results[0].geometry.location.lat
+            locationLng =  response.results[0].geometry.location.lng
+            console.log("these are the coordinates");
         });
 
 
@@ -120,47 +141,58 @@ $(document).ready(function () {
         })
             .then(function (response) {
                 renderSearchInfo(response);
-                initMap();
             })
-        //local storage
-
-        // let text = $(".search-btn").text();
-        // localStorage.setItem("search-btn", text);
-        // alert(localStorage.getItem("search-btn"));
-
-
     });
 
-    // function addFav(){
-    //     $.ajax({
-    //       url: "/favorites/add",
-    //       data: {"id": articleID},
-    //       success: function(){
-    //            $('a#fav')
-    //                  .addClass('active')
-    //                  .attr('title','[-] Remove from favorites')
-    //                  .unbind('click')
-    //                  .bind('click', removeFav)
-    //            ;
-    //       }
-    //     });
-    // }
 
-    // function removeFav(){
-    //     $.ajax({
-    //       url: "/favorites/remove",
-    //       data: {"id": articleID},
-    //       success: function(){
-    //             $('a#fav')
-    //                  .removeClass('active')
-    //                  .attr('title','[+] Add as favorite')
-    //                  .unbind('click')
-    //                  .bind('click', addFav)
-    //             ;
-    //       }
-    //     });
-    // }
+    function save (button) {
+        $("#button_"+button).on("click", function(){
+            let storedData = JSON.parse(localStorage.getItem("favorites"));
+            if(storedData!==null){
+                favoriteData=storedData;
+            }
+            favoriteData.push(saveData[button]);
 
-    //this will make the link listen to function addFav (you might know this already)
-    // $('a#fav').bind('click', addFav);
+            
+        
+            localStorage.setItem("favorites", JSON.stringify(favoriteData));
+        });
+    };
+
+    $(".favorite-btn").on("click", function(){
+        $(".results-field").empty();
+        let storedData = JSON.parse(localStorage.getItem("favorites"));
+        let rowElement = $("<div>");
+        rowElement.addClass("pure-g");
+        $(".results-field").append(rowElement);
+        for(let i=0;i<storedData.length;i++){
+        let brewList = $("<ul>");
+        let brewName = $("<h3>");
+        let brewAddress = $("<p>");
+        let brewPhone = $("<p>");
+        let brewType = $("<p>");
+        let brewUrl = $("<a>");
+        brewName.text(storedData[i].name);
+        brewAddress.text(storedData[i].address);
+        brewPhone.text(storedData[i].phone);
+        brewType.text(storedData[i].type);
+        brewUrl.text(storedData[i].url);
+        brewUrl.attr("href", storedData[i].url);
+        brewList.append(brewName,brewAddress,brewPhone,brewType,brewUrl);
+        brewList.addClass("brew-list");
+        brewList.addClass("pure-u-1");
+        rowElement.append(brewList);
+        console.log(storedData[i]);
+        console.log(storedData[i].name);
+        }
+
+    })
+    $(".jumbo").on("click",function(){
+        $(".results-field").empty();
+        let h2Element=$("<h2>");
+        h2Element.addClass("city-question");
+        h2Element.text("What city are you in?");
+        $(".results-field").append(h2Element);
+    })
+
 });
