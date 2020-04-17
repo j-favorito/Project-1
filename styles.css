@@ -6,6 +6,7 @@ body{
     background-color: orange;
     margin-left: 19px;
     margin-right: 19px;
+    cursor: pointer;
 }
 
 .type{
