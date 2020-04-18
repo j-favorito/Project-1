@@ -1,16 +1,12 @@
 $(document).ready(function () {
-    // let stateName = $().val().trim();
-    // let brewName = $().val().trim();
-    // let zipCode = $().val().trim();
     var locations = [];
     var labels = [];
     let saveData = [];
-    let favoriteData=[];
+    let favoriteData = [];
 
+    //function to create brewery list
     function renderSearchInfo(brewData) {
-        console.log(brewData);
-        console.log(brewData[0].name);
-        saveData=[];
+        saveData = [];
         let k = 0;
         let j = 0;
         let rowElement = $("<div>");
@@ -64,12 +60,9 @@ $(document).ready(function () {
         initMap();
         for (let i = 0; i < j; i++) {
             save(i);
-            console.log(j);
         };
-        console.log(saveData)
-        console.log(locations);
-        console.log(labels);
     };
+    //placeholder center of map
     let locationLat = 39.8283;
     let locationLng = -98.5795;
 
@@ -95,18 +88,7 @@ $(document).ready(function () {
         var markerCluster = new MarkerClusterer(map, markers,
             { imagePath: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m" });
     }
-
-    // Add some markers to the map.
-    // Note: The code uses the JavaScript Array.prototype.map() method to
-    // create an array of markers based on a given "locations" array.
-    // The map() method here has nothing to do with the Google Maps API.
-
-
-
-
-
-
-
+    //executes ajax call on button press
     $(".search-btn").on("click", function (e) {
         e.preventDefault();
         $(".city-question").empty();
@@ -123,16 +105,13 @@ $(document).ready(function () {
             method: "GET",
             async: false
         }).then(function (response) {
-            console.log(response)
-            locationLat =  response.results[0].geometry.location.lat
-            locationLng =  response.results[0].geometry.location.lng
-            console.log("these are the coordinates");
+            locationLat = response.results[0].geometry.location.lat
+            locationLng = response.results[0].geometry.location.lng
         });
 
 
-
+        //sends city name to brewery api
         let cityName = $(".city-search").val().trim();
-        console.log(cityName)
         let city = "?by_city=" + cityName;
         let queryURL = "https://api.openbrewerydb.org/breweries" + city;
         $.ajax({
@@ -144,53 +123,53 @@ $(document).ready(function () {
             })
     });
 
-
-    function save (button) {
-        $("#button_"+button).on("click", function(){
+    //save function
+    function save(button) {
+        $("#button_" + button).on("click", function () {
             let storedData = JSON.parse(localStorage.getItem("favorites"));
-            if(storedData!==null){
-                favoriteData=storedData;
+            if (storedData !== null) {
+                favoriteData = storedData;
             }
             favoriteData.push(saveData[button]);
 
-            
-        
+
+
             localStorage.setItem("favorites", JSON.stringify(favoriteData));
         });
     };
 
-    $(".favorite-btn").on("click", function(){
+    //creates favorite page on button click
+    $(".favorite-btn").on("click", function () {
         $(".results-field").empty();
         let storedData = JSON.parse(localStorage.getItem("favorites"));
         let rowElement = $("<div>");
         rowElement.addClass("pure-g");
         $(".results-field").append(rowElement);
-        for(let i=0;i<storedData.length;i++){
-        let brewList = $("<ul>");
-        let brewName = $("<h3>");
-        let brewAddress = $("<p>");
-        let brewPhone = $("<p>");
-        let brewType = $("<p>");
-        let brewUrl = $("<a>");
-        brewName.text(storedData[i].name);
-        brewAddress.text(storedData[i].address);
-        brewPhone.text(storedData[i].phone);
-        brewType.text(storedData[i].type);
-        brewUrl.text(storedData[i].url);
-        brewUrl.attr("href", storedData[i].url);
-        brewList.append(brewName,brewAddress,brewPhone,brewType,brewUrl);
-        brewList.addClass("brew-list");
-        brewList.addClass("pure-u-1");
-        rowElement.append(brewList);
-        console.log(storedData[i]);
-        console.log(storedData[i].name);
+        for (let i = 0; i < storedData.length; i++) {
+            let brewList = $("<ul>");
+            let brewName = $("<h3>");
+            let brewAddress = $("<p>");
+            let brewPhone = $("<p>");
+            let brewType = $("<p>");
+            let brewUrl = $("<a>");
+            brewName.text(storedData[i].name);
+            brewAddress.text(storedData[i].address);
+            brewPhone.text(storedData[i].phone);
+            brewType.text(storedData[i].type);
+            brewUrl.text(storedData[i].url);
+            brewUrl.attr("href", storedData[i].url);
+            brewList.append(brewName, brewAddress, brewPhone, brewType, brewUrl);
+            brewList.addClass("brew-list");
+            brewList.addClass("pure-u-1");
+            rowElement.append(brewList);
         }
 
-    })
-    $(".jumbo").on("click",function(){
+    });
+    //allows you to go to start page on jumbotron click
+    $(".jumbo").on("click", function () {
         $(".city-question").empty();
         $(".results-field").empty();
-        let h2Element=$("<h2>");
+        let h2Element = $("<h2>");
         h2Element.addClass("city-question");
         h2Element.text("What city are you in?");
         $(".results-field").append(h2Element);
