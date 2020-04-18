@@ -188,6 +188,7 @@ $(document).ready(function () {
 
     })
     $(".jumbo").on("click",function(){
+        $(".city-question").empty();
         $(".results-field").empty();
         let h2Element=$("<h2>");
         h2Element.addClass("city-question");
